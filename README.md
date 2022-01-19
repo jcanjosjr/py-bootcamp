@@ -11,4 +11,5 @@ For each class focused on web development, backend applications and database, ne
 On the end of the course, I wan't to make a RSA Algorithm with Python, and expectate that course improve my skills on my Career of DBA, and give me an idea
 of how the data area really works.
 
-"I learned quite early on the difference between knowing the name of something and knowing something." - Feynman.
+"I learned quite early on the difference between knowing the name of something and knowing something." 
+                                                                                      Feynman.
