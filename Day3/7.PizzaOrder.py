@@ -1,7 +1,5 @@
 # Based on user's order, work out their final bill.
 
-from audioop import add
-
 
 while True:
     print('Welcome to Python Pizza!')
