@@ -23,7 +23,7 @@ for _ in range(wordLength):
 while not finish:
     guess = input("Guess a letter: ").lower()
 
-    # Use the clear() function to clear the output.
+    # Using the clear() function to clear the output.
     clear()
 
     if guess in blank:
