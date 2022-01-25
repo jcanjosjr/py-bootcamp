@@ -1,6 +1,10 @@
 # Enconding text during the times of Julius Caeser.
 
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+# Duplicate the alphabet values because Index Error.
+alphabet = [
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+]
 
 logo = """
            ""             88                                 
@@ -14,14 +18,41 @@ a8"     "" 88 88P'    "8a 88P'    "8a a8P_____88 88P'   "Y8
               88           
 """
 
-# Printing the logo.
+
+# Course solution:
+def caeser(startText, shiftAmount, cipherDirection):
+    endText = ""
+    if cipherDirection == "decode":
+        shiftAmount *= -1
+    for char in startText:
+        if char in alphabet:
+            position = alphabet.index(char)
+            newPosition = position + shiftAmount
+            endText += alphabet[newPosition]
+        else:
+            endText += char            
+    print(f"The {cipherDirection} text is {endText}")
+
+
+shouldContinue = True
 print(logo + "\n")
-choose = input("Type 'encode' to encrypt, type 'decode' to decrypt: ").lower()
-text = input("Type your message: ")
-shift = int(input("Type the shift number: "))
+
+while shouldContinue:
+    choose = input("Type 'encode' to encrypt, type 'decode' to decrypt: ").lower()
+    text = input("Type your message: ")
+    shift = int(input("Type the shift number: "))
+
+    # This resolves every number greatest the alphabet list index.
+    shift = shift % 26
+    caeser(startText=text, shiftAmount=shift, cipherDirection=choose)
+    result = input("Type [yes] if you want to go again. Otherwise type [no]: ")
+    if result == 'no':
+        shouldContinue = False
+        print('Goodbye.')
 
 
-# ok
+""" My solution:
+    # Encoded the text.
 def encrypt(plainText, totalShift):
     cipherText = ""
     for letter in plainText:
@@ -32,21 +63,12 @@ def encrypt(plainText, totalShift):
     print(f"The encoded text is {cipherText}")
 
 
-cipherText = encrypt(text, shift)
-
-
-# error.
-def decrypt(encryptText, totalShift):
-    cipherText = ""
-    for letter in encryptText:
+    # Decoded the cipherText.
+def decrypt(cipherText, totalShift):
+    plainText = ""
+    for letter in cipherText:
         position = alphabet.index(letter)
         newPosition = position - totalShift
-        newLetter = alphabet[newPosition]
-        cipherText += newLetter
-    print(f"The encoded text is {cipherText}")
-
-
-decrypt(cipherText, shift)
-
-
-# not finish yet
+        plainText += alphabet[newPosition]
+    print(f"The decoded text is {plainText}")
+"""
