@@ -6,14 +6,27 @@
 # The cards in the list have equal probability of being drawn.
 # Cards are not removed from the deck as they are drawn.
 
-import random
+# import only system from os
+from os import system, name
+from random import choice
 from art import logo
+
+
+# Defining clear() for all OS.
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+  
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
 
 
 def dealCard():
     """Return a Random Card from a Deck."""
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-    card = random.choice(cards)
+    card = choice(cards)
     return card
 
 
@@ -30,56 +43,68 @@ def calculateScore(cards):
     return sum(cards)
 
 
-# Dealing the cards:
-userCards = [dealCard(), dealCard()]
-computerCards = [dealCard(), dealCard()]
-gameOver = False
+def playGame():
+    # Dealing the cards:
+    userCards = [dealCard(), dealCard()]
+    computerCards = [dealCard(), dealCard()]
+    gameOver = False
 
-print(logo)
+    print(logo)
 
-# Making a While loop, to validate if Games end.
-while not gameOver:
-    # Calculate the scores, reveal cards:
-    userScore = calculateScore(userCards)
-    computerScore = calculateScore(computerCards)
-    print(f"Your cards: {userCards}, current score: {userScore}")
-    print(f"Computer's first card: {computerCards[0]}.")
+    # Making a While loop, to validate if Games end.
+    while not gameOver:
+        # Calculate the scores, reveal cards:
+        userScore = calculateScore(userCards)
+        computerScore = calculateScore(computerCards)
+        print(f"Your cards: {userCards}, current score: {userScore}")
+        print(f"Computer's first card: {computerCards[0]}.")
 
-    # Validate if anyone lose:
-    if userScore == 0 or computerScore == 0 or userScore > 21:
-        gameOver = True
-    else:
-        # Giving the choice from another card to Player:
-        userDeal = input("Type 'y' to get another card, type 'n' to pass: ")
-        if userDeal == 'y':
-            userCards.append(dealCard())
-        else:
+        # Validate if anyone lose:
+        if userScore == 0 or computerScore == 0 or userScore > 21:
             gameOver = True
+        else:
+            # Giving the choice from another card to Player:
+            userDeal = input("Type 'y' to get another card, type 'n' to pass: ")
+            if userDeal == 'y':
+                userCards.append(dealCard())
+            else:
+                gameOver = True
 
-while computerScore != 0 and computerScore < 17:
-    computerCards.append(dealCard())
-    computerScore = calculateScore(computerCards)
-
-
-def compare(userScore, computerScore):
-    """Compare the Cards Scores for Blackjack results."""
-    if userScore == computerScore:
-        return f"It's a Draw."
-    elif computerScore == 0:
-        return f"Lose, opponent has Blackjack."
-    elif userScore == 0:
-        return f"Win with a Blackjack."
-    elif userScore > 21:
-        return f"You went over. You Lose."
-    elif computerScore > 21:
-        return f"Opponent went over. You win."
-    elif userScore > computerScore:
-        return f"You win."
-    else:
-        return f"You lose."
+    while computerScore != 0 and computerScore < 17:
+        computerCards.append(dealCard())
+        computerScore = calculateScore(computerCards)
 
 
-# Print the result!
-print(f" Your final hand: {userCards}, final score: {userScore}")
-print(f" Computer's final hand: {computerCards}, final score: {computerScore}")
-print(compare(userScore, computerScore))
+    def compare(userScore, computerScore):
+        """Compare the Cards Scores for Blackjack results."""
+        if userScore == computerScore:
+            return f"It's a Draw."
+        elif computerScore == 0:
+            return f"Lose, opponent has Blackjack."
+        elif userScore == 0:
+            return f"Win with a Blackjack."
+        elif userScore > 21:
+            return f"You went over. You Lose."
+        elif computerScore > 21:
+            return f"Opponent went over. You win."
+        elif userScore > computerScore:
+            return f"You win."
+        else:
+            return f"You lose."
+
+
+    # Print the result!
+    print(f" Your final hand: {userCards}, final score: {userScore}")
+    print(f" Computer's final hand: {computerCards}, final score: {computerScore}")
+    print(compare(userScore, computerScore))
+
+# Starting the Game xD
+playGame()
+
+# Validate if the player want to play more!
+nextGame = input("Do you want to play again? [y] or [n]: ")
+if nextGame == 'y':
+    playGame()
+    clear()
+else:
+    print("Goodbye!")
