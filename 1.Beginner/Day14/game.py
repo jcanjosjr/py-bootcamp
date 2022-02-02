@@ -27,26 +27,29 @@ def game():
         if i == 0:   
             score = 0
             personA = randData(data)
+            print(logo)
         personB = randData(data)
-        print(logo)
         print(f"Compare A: {formatData(personA)}.")
         print(vs)
         print(f"Compare B: {formatData(personB)}.")
         guess = input("Who has more followers? Type [A] or [B]: ")
         if personA['follower_count'] > personB['follower_count'] and guess == 'A':
-            score += 1
-            print(f"You're right! Current score: {score}")
-            i += 1
             click.clear()
+            score += 1
+            print(logo)
+            print(f"        You're right! Current score: {score}!")
+            i += 1
         elif personA['follower_count'] < personB['follower_count'] and guess == 'B':
             score += 1
-            print(f"You're right! Current score: {score}")
+            click.clear()
+            print(logo)
+            print(f"        You're right! Current score: {score}!")
             i += 1
             personA = personB
-            click.clear()
         else:
-            print(f"Sorry, that's wrong. Final score: {score}.")
-            recursive = False
             click.clear()
+            print(logo)
+            print(f"        Sorry, that's wrong. Final score: {score}. :(")
+            recursive = False
 
 game()
