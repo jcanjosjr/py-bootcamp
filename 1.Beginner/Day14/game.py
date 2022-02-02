@@ -1,5 +1,4 @@
 # A game with comparising instagram followers between persons.
-
 from art import logo, vs
 from data import data
 import random
